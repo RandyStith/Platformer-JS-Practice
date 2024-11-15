@@ -3,21 +3,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const GRID_HEIGHT = 20
     const GRID_SIZE = GRID_WIDTH * GRID_HEIGHT
 
-    const grid = createGrid();
-    let squares = Array.from(grid.querySelectorAll('div'))
-    const startBtn = document.querySelector('.button')
-    const hamburgerBtn = document.querySelector('.toggler')
-    const menu = document.querySelector('.menu')
-    const span = document.getElementsByClassName('close')[0]
-    const scoreDisplay = document.querySelector('.score-display')
-    const linesDisplay = document.querySelector('.lines-score')
-    let currentIndex = 0
-    let currentRotation = 0
-    const width = 10
-    let score = 0
-    let lines = 0
-    let timerId
-    let nextRandom = 0
+  const grid = createGrid();
+  let squares = Array.from(grid.querySelectorAll('div'))
+  const startBtn = document.querySelector('.button')
+  const hamburgerBtn = document.querySelector('.toggler')
+  const menu = document.querySelector('.menu')
+  const span = document.getElementsByClassName('close')[0]
+  const scoreDisplay = document.querySelector('.score-display')
+  const linesDisplay = document.querySelector('.lines-score')
+  let currentIndex = 0
+  let currentRotation = 0
+  const width = 10
+  let score = 0
+  let lines = 0
+  let timerId
+  let nextRandom = 0
     const colors = [
         'url(images/blue_block.png)',
         'url(images/pink_block.png)',
