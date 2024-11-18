@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const GRID_WIDTH =10
+    const GRID_WIDTH = 10
     const GRID_HEIGHT = 20
     const GRID_SIZE = GRID_WIDTH * GRID_HEIGHT
 
@@ -26,11 +26,13 @@ document.addEventListener('DOMContentLoaded', () => {
         'url(images/yellow_block.png)'
     ]
     function createGrid() {
+
         let grid = document.querySelector(".grid")
         for (let i = 0; i < GRID_SIZE; i++) {
-            let gridElement = document.createElemen("div")
+            let gridElement = document.createElement("div")
             grid.appendChild(gridElement)
         }
+
         for (let i = 0; i < GRID_WIDTH; i++) {
             let gridElement = document.createElement("div")
             gridElement.setAttribute("class", "block3")
@@ -42,128 +44,136 @@ document.addEventListener('DOMContentLoaded', () => {
             let gridElement = document.createElement("div")
             previousGrid.appendChild(gridElement);
         }
+
         return grid;
     }
-    function control(e) {
-        if (e.keyCode === 39)
-            moveright()
-        else if (e.keyCode === 38)
-            rotate()
-        else if (e.keyCode === 37)
-            moveleft()
-        else if (e.keyCode === 40)
-            moveDown()
-    }
+
+      function control(e) {
+    if (e.keyCode === 39)
+      moveright()
+    else if (e.keyCode === 38)
+      rotate()
+    else if (e.keyCode === 37)
+      moveleft()
+    else if (e.keyCode === 40)
+      moveDown()
+  }
 
     document.addEventListener('keydown', control)
 
-    const lTetromino  = [
-        [1, GRID_WIDTH + 1, GRID_WIDTH * 2 +1, 2],
+    const lTetromino = [
+        [1, GRID_WIDTH + 1, GRID_WIDTH * 2 + 1, 2],
         [GRID_WIDTH, GRID_WIDTH + 1, GRID_WIDTH + 2, GRID_WIDTH * 2 + 2],
         [1, GRID_WIDTH + 1, GRID_WIDTH * 2 + 1, GRID_WIDTH * 2],
         [GRID_WIDTH, GRID_WIDTH * 2, GRID_WIDTH * 2 + 1, GRID_WIDTH * 2 + 2]
-    ]
-
-    const zTetromino = [
+      ]
+    
+      const zTetromino = [
         [0, GRID_WIDTH, GRID_WIDTH + 1, GRID_WIDTH * 2 + 1],
         [GRID_WIDTH + 1, GRID_WIDTH + 2, GRID_WIDTH * 2, GRID_WIDTH * 2 + 1],
         [0, GRID_WIDTH, GRID_WIDTH + 1, GRID_WIDTH * 2 + 1],
         [GRID_WIDTH + 1, GRID_WIDTH + 2, GRID_WIDTH * 2, GRID_WIDTH * 2 + 1]
-    ]
-
-    const tTetromino = [
+      ]
+    
+      const tTetromino = [
         [1, GRID_WIDTH, GRID_WIDTH + 1, GRID_WIDTH + 2],
         [1, GRID_WIDTH + 1, GRID_WIDTH + 2, GRID_WIDTH * 2 + 1],
         [GRID_WIDTH, GRID_WIDTH + 1, GRID_WIDTH + 2, GRID_WIDTH * 2 + 1],
-        [1, GRID_WIDTH, GRID_WIDTH + 1, GRID_HEIGHT * 2 + 1]
-    ]
-
-    const oTetromino = [
+        [1, GRID_WIDTH, GRID_WIDTH + 1, GRID_WIDTH * 2 + 1]
+      ]
+    
+      const oTetromino = [
         [0, 1, GRID_WIDTH, GRID_WIDTH + 1],
         [0, 1, GRID_WIDTH, GRID_WIDTH + 1],
         [0, 1, GRID_WIDTH, GRID_WIDTH + 1],
         [0, 1, GRID_WIDTH, GRID_WIDTH + 1]
-    ]
-
-    const iTetromino = [
+      ]
+    
+      const iTetromino = [
         [1, GRID_WIDTH + 1, GRID_WIDTH * 2 + 1, GRID_WIDTH * 3 + 1],
         [GRID_WIDTH, GRID_WIDTH + 1, GRID_WIDTH + 2, GRID_WIDTH + 3],
-        [1, GRID_WIDTH + 1, GRID_WIDTH * 2 + 1, GRID_WIDTH * 3 + 1]
-    ]
+        [1, GRID_WIDTH + 1, GRID_WIDTH * 2 + 1, GRID_WIDTH * 3 + 1],
+        [GRID_WIDTH, GRID_WIDTH + 1, GRID_WIDTH + 2, GRID_WIDTH + 3]
+      ]
     
-    const theTetrominoes = [lTetromino, zTetromino, tTetromino, oTetromino, iTetromino]
-
+      const theTetrominoes = [lTetromino, zTetromino, tTetromino, oTetromino, iTetromino]
+    
     let random = Math.floor(Math.random() * theTetrominoes.length)
     let current = theTetrominoes[random][currentRotation]
 
     let currentPosition = 4
-    
-    function draw() {
-        current.forEach(index => {
-            squares[currentPosition + index].classList.add('block')
-            squares[currentPosition + index].style.backgroundImage = colors[random]
-        })
-    }
 
-    function undraw() {
-        current.forEach(index => {
-            squares[currentPosition + index].classList.remove('block')
-            squares[currentPosition + index].style.backgroundImage = 'none'
-        })
-    }
+  function draw() {
+    current.forEach(index => {
+      squares[currentPosition + index].classList.add('block')
+      squares[currentPosition + index].style.backgroundImage = colors[random]
+    })
+  }
 
-    function moveDown() {
-        undraw()
-        currentPosition = currentPosition += width
-        draw()
-        freeze()
-    }
+  function undraw() {
+    current.forEach(index => {
+      squares[currentPosition + index].classList.remove('block')
+      squares[currentPosition + index].style.backgroundImage = 'none'
+    })
+  }
+
+  function moveDown() {
+    undraw()
+    currentPosition = currentPosition += width
+    draw()
+    freeze()
+  }
     startBtn.addEventListener('click', () => {
         if (timerId) {
-            clearInterval(timerId)
-            TimerId = null
+          clearInterval(timerId)
+          timerId = null
         } else {
-            draw()
-            timerId = setInterval(moveDown, 1000)
-            nextRandom = Math.floor(Math.random() * theTetrominoes.length)
-            displayShape()
+          draw()
+          timerId = setInterval(moveDown, 1000)
+          nextRandom = Math.floor(Math.random() * theTetrominoes.length)
+          displayShape()
         }
-    })
+      })
     
-    function moveright() {
+    
+      function moveright() {
         undraw()
         const isAtRightEdge = current.some(index => (currentPosition + index) % width === width - 1)
         if (!isAtRightEdge) currentPosition += 1
         if (current.some(index => squares[currentPosition + index].classList.contains('block2'))) {
-            currentPosition = -1
+          currentPosition -= 1
         }
         draw()
-    }
-
-    function moveleft() {
+      }
+    
+      function moveleft() {
         undraw()
         const isAtLeftEdge = current.some(index => (currentPosition + index) % width === 0)
-        if (!isAtLeftEdge) currentPosition -= -1
+        if (!isAtLeftEdge) currentPosition -= 1
         if (current.some(index => squares[currentPosition + index].classList.contains('block2'))) {
-            currentPosition += 1
+          currentPosition += 1
         }
         draw()
-    }
+      }
+    
 
-    function freeze() {
+      function freeze() {
+     
         if (current.some(index => squares[currentPosition + index + width].classList.contains('block3') || squares[currentPosition + index + width].classList.contains('block2'))) {
-            current.forEach(index => squares[index + currentPosition].classList.add("block2"))
-            random = nextRandom
-            nextRandom = Math.floor(Math.random() * theTetrominoes.length)
-            current = theTetrominoes[random][currentPosition]
-            currentPosition = 4
-            draw()
-            displayShape()
-            addScore()
-            gameOver()
+
+          current.forEach(index => squares[index + currentPosition].classList.add('block2'))
+
+          random = nextRandom
+          nextRandom = Math.floor(Math.random() * theTetrominoes.length)
+          current = theTetrominoes[random][currentRotation]
+          currentPosition = 4
+          draw()
+          displayShape()
+          addScore()
+          gameOver()
         }
-    }
-    freeze()
+      }
+      freeze()
 
     function rotate() {
         undraw()
